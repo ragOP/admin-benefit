@@ -2,651 +2,397 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>SphTraders — Smarter Solar for Homes & Businesses</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0fa36b" />
-  <meta name="description" content="SphTraders: Free solar consultation, custom design, pro installation, subsidy & loan help, maintenance & monitoring, and 24/7 support." />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>SPG — Solar Savings Eligibility</title>
+
+  <!-- Icons -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        referrerpolicy="no-referrer" />
 
   <style>
-    /* ========== Design Tokens ========== */
     :root{
-      --bg:#0a0f12;            /* page background */
-      --ink:#0b1b15;           /* dark ink on light cards */
-      --text:#eaf7f1;          /* body on dark */
-      --muted:#b9d9cb;         /* secondary on dark */
-      --brand:#10b981;         /* emerald */
-      --brand-2:#a3e635;       /* lime accent */
-      --brand-3:#22d3ee;       /* cyan accent */
-      --card:#ffffff;
-      --ring: rgba(16,185,129,.35);
-      --glass: rgba(255,255,255,0.08);
-      --glass-2: rgba(255,255,255,0.12);
-      --shadow: 0 10px 30px rgba(16,185,129,.15);
-      --radius: 18px;
-      --max: 1120px;
-      --hero-grad: radial-gradient(1200px 600px at 80% -20%, rgba(34,211,238,.25), transparent 60%),
-                   radial-gradient(900px 600px at -10% 20%, rgba(16,185,129,.25), transparent 60%),
-                   linear-gradient(180deg, #0a0f12 0%, #0f1720 60%, #0a0f12 100%);
-      --accent-grad: linear-gradient(120deg, var(--brand) 0%, var(--brand-2) 50%, var(--brand-3) 100%);
-      --cta-grad: linear-gradient(135deg, #10b981 0%, #22d3ee 100%);
+      --ink:#0f172a;       /* text */
+      --muted:#475569;     /* subtle text */
+      --brand:#0ea5e9;     /* header blue */
+      --accent:#22c55e;    /* green */
+      --cta:#16a34a;       /* CTA green */
+      --cta-2:#0ea5e9;     /* CTA secondary */
+      --ring: 0 25px 50px -12px rgb(0 0 0 / .25);
+      --max: 48rem;
     }
 
-    /* ========== Reset-ish ========== */
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing: border-box; }
+    html, body{ height:100%; }
     body{
       margin:0;
-      background:var(--hero-grad);
-      color:var(--text);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      font-family: Arial, Helvetica, sans-serif;
+      color:var(--ink);
+      background:#f6f8fb;
     }
-    a{color:inherit; text-decoration:none}
-    img{max-width:100%; height:auto; display:block}
-    .container{width:100%; max-width:var(--max); margin:0 auto; padding:0 16px}
+    a{ color:inherit; text-decoration:none; }
 
-    /* ========== Utility ========== */
-    .pill{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12)}
-    .tag{display:inline-block; font-size:12px; letter-spacing:.3px; text-transform:uppercase; color:#052e22; background:#a7f3d0; padding:6px 10px; border-radius:999px}
-    .grid{display:grid; gap:16px}
-    .hide{display:none !important}
-    .blur-edge{backdrop-filter:saturate(150%) blur(8px)}
-    .glass{background:var(--glass); border:1px solid rgba(255,255,255,.14); border-radius:var(--radius)}
-    .ring{box-shadow:0 0 0 6px var(--ring)}
-    .shadow{box-shadow:var(--shadow)}
-    .sr{position:absolute;clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}
-
-    /* ========== Header ========== */
-    header{
-      position:sticky; top:0; z-index:50;
-      background:linear-gradient(180deg, rgba(10,15,18,.85), rgba(10,15,18,.35) 60%, transparent);
-      border-bottom:1px solid rgba(255,255,255,.08);
-      backdrop-filter: blur(10px);
-    }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0;
+    /* Header */
+    .header{
+      display:flex; align-items:center; justify-content:center;
+      height:64px; background:linear-gradient(90deg, #0284c7, #0ea5e9);
+      color:#fff; position:sticky; top:0; z-index:10;
+      box-shadow: 0 4px 10px rgba(0,0,0,.08);
     }
     .brand{
-      display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px;
+      display:flex; align-items:center; gap:.6rem; font-weight:800; font-size:1.1rem;
+      letter-spacing:.5px;
     }
-    .logo{
-      width:36px; height:36px; border-radius:12px; background:var(--accent-grad);
-      position:relative; overflow:hidden; box-shadow:0 6px 16px rgba(34,211,238,.35);
+    .brand .logo{
+      width:40px; height:40px; border-radius:10px;
+      display:grid; place-items:center; background:#ffffff22; border:1px solid #ffffff55;
     }
-    .logo::after{
-      content:""; position:absolute; inset:6px; border-radius:10px;
-      background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 40%);
-      mix-blend-overlay;
+    .tagline{ font-weight:600; opacity:.95; }
+
+    /* Live ticker */
+    .livebar{
+      background:#0b1324; color:#dbeafe; display:flex; align-items:center; justify-content:center;
+      gap:.6rem; font-size:.94rem; padding:.6rem .8rem;
     }
-    .call-mini{
-      display:inline-flex; align-items:center; gap:10px;
-      background:var(--cta-grad); color:#03241c; padding:10px 14px; border-radius:12px; font-weight:600;
-      box-shadow:0 10px 24px rgba(34,211,238,.25);
+    .live-dot{
+      width:10px; height:10px; border-radius:50%; background:#ef4444; box-shadow:0 0 8px #ef4444cc;
+      animation: pulse 1s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%{ transform:scale(1); opacity:1; }
+      50%{ transform:scale(1.25); opacity:.75; }
+      100%{ transform:scale(1); opacity:1; }
+    }
+    .live-text{ font-weight:700; letter-spacing:.2px; }
+    .live-divider{ opacity:.35; }
+    .live-count{ font-weight:800; color:#22d3ee; }
+
+    /* Container */
+    .container{ max-width:var(--max); margin-inline:auto; padding: 0 1rem; }
+
+    /* Hero */
+    .title{ text-align:center; font-size:1.9rem; font-weight:900; margin: 1rem 0 .5rem; }
+    .subtitle{ text-align:center; color:var(--muted); font-weight:600; margin-bottom:.5rem; }
+
+    /* Slider */
+    .slider{
+      position:relative; width:100%; aspect-ratio: 16/9; border-radius:14px; overflow:hidden;
+      box-shadow: var(--ring); background:#000;
+      margin: .35rem 0 1rem;
+    }
+    .slides{ display:flex; width:300%; height:100%; transform: translateX(0%); transition: transform .6s ease; }
+    .slide{ flex:0 0 100%; height:100%; background:center/cover no-repeat; }
+    .slide-1{ background-image:url('https://images.unsplash.com/photo-1660330589257-813305a4a383?w=1600&q=80&auto=format&fit=crop'); }
+    .slide-2{ background-image:url('https://plus.unsplash.com/premium_photo-1682148026899-d21f17c04e80?w=1600&q=80&auto=format&fit=crop'); }
+    .slide-3{ background-image:linear-gradient(120deg,#00000099,#00000033),url('https://images.unsplash.com/photo-1660330589257-813305a4a383?w=1600&q=60&auto=format&fit=crop'); }
+
+    .slider-arrows{
+      position:absolute; inset:0; display:flex; justify-content:space-between; align-items:center;
+      padding:0 .4rem; pointer-events:none;
+    }
+    .arrow{
+      pointer-events:auto; width:42px; height:42px; border-radius:50%; display:grid; place-items:center;
+      background:#ffffffbb; border:1px solid #fff; backdrop-filter: blur(2px); cursor:pointer;
+    }
+    .dots{ position:absolute; left:0; right:0; bottom:10px; display:flex; gap:8px; justify-content:center; }
+    .dot{ width:10px; height:10px; border-radius:50%; background:#ffffff90; border:1px solid #fff; cursor:pointer; }
+    .dot.active{ background:#fff; }
+
+    /* Quiz */
+    .chip{
+      margin:.25rem auto .25rem; width:max-content; background:#e0f2fe; color:#075985; border:1px solid #bae6fd;
+      font-weight:800; padding:.5rem .85rem; border-radius:999px; box-shadow:0 2px 0 #bae6fd;
+    }
+    .card{
+      background:#ffffff; border-radius:12px; padding:18px 16px 16px;
+      box-shadow: var(--ring); margin-bottom: 1.2rem;
+    }
+    .q-title{ font-size:1.35rem; font-weight:800; text-align:center; margin:.25rem 0 .5rem; }
+    .answers{ display:grid; grid-template-columns:1fr; gap:.6rem; margin-top:.8rem; }
+    .btn{
+      border:none; cursor:pointer; font-weight:800; text-transform:none; letter-spacing:.2px;
+      padding:1rem 1rem; border-radius:14px; display:flex; justify-content:center; align-items:center;
+      box-shadow: var(--ring); transition: transform .06s ease, filter .15s ease;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn-primary{ background:linear-gradient(180deg,#22c55e,#16a34a); color:#fff; }
+    .btn-outline{
+      background:#fff; color:#0f172a; border:2px solid #0f172a15;
+    }
+    .badge{ font-weight:900; color:#059669; margin-left:.5rem; }
+
+    /* Status & Congrats */
+    .status, .congrats{
+      text-align:center; padding:1.1rem; background:#f1f5f9; border-top:2px solid #0ea5e9;
+      max-width:var(--max); margin: 1rem auto; border-radius:10px; font-weight:700;
+    }
+    .hidden{ display:none; }
+
+    .summary{
+      margin:.75rem auto; padding:.75rem .9rem; background:#ecfeff; border:1px dashed #06b6d4; color:#155e75;
+      width:100%; border-radius:10px; text-align:left; font-weight:700;
+    }
+    .summary b{ color:#0891b2; }
+
+    .cta-stack{ display:flex; flex-direction:column; gap:.6rem; margin-top:.8rem; }
+    .cta{ composes: btn; }
+    .cta-call{ background:linear-gradient(180deg,#16a34a,#15803d); color:#fff; }
+    .cta-wa{ background:#fff; border:2px dashed #16a34a; color:#065f46; }
+    .cta-wa i{ margin-right:.5rem; color:#16a34a; }
+
+    .timer{
+      display:inline-flex; gap:.4rem; padding:.35rem .6rem; border:2px dashed #ef4444; color:#ef4444; border-radius:8px; margin-top:.5rem;
+      font-weight:800;
     }
 
-    /* ========== Hero ========== */
-    .hero{ position:relative; padding:64px 0 24px; }
-    .hero-wrap{ display:grid; gap:18px; text-align:center; justify-items:center; }
-    .hero h1{
-      font-family:Poppins, Inter, sans-serif;
-      font-size: clamp(28px, 6vw, 52px);
-      line-height:1.1; margin:0; letter-spacing:.2px;
-      background:var(--accent-grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+    .foot{
+      max-width:var(--max); margin: 14vh auto 2rem; padding:1rem; text-align:center; color:#475569; font-size:.92rem;
     }
-    .hero p{ margin:4px 0 0; color:var(--muted); font-size: clamp(14px, 3.4vw, 18px); }
-    .hero-cards{margin-top:18px; display:grid; gap:12px; width:100%}
-    @media(min-width:720px){ .hero-cards{grid-template-columns: repeat(3, 1fr)} }
-    .pulse{
-      position:absolute; inset: -200px -120px auto auto; width:420px; height:420px;
-      background:radial-gradient(circle at 50% 50%, rgba(163,230,53,.12), transparent 60%);
-      filter: blur(28px); opacity:.8; pointer-events:none; animation: float 12s ease-in-out infinite;
-    }
-    @keyframes float{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-
-    /* ========== Questionnaire Card ========== */
-    .quiz-card{
-      border-radius:calc(var(--radius) + 2px);
-      border:1px solid rgba(255,255,255,.16);
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
-      padding:16px; position:relative;
-    }
-    .quiz-head{
-      position:sticky; top:0; z-index:2; background:linear-gradient(180deg, rgba(10,15,18,.8), rgba(10,15,18,.2));
-      display:flex; align-items:center; justify-content:space-between; gap:10px; margin:-16px -16px 10px; padding:12px 16px; border-radius:calc(var(--radius) + 2px) calc(var(--radius) + 2px) 0 0;
-      border-bottom:1px solid rgba(255,255,255,.12);
-    }
-    .progress{ height:10px; width:45%; background:rgba(255,255,255,.12); border-radius:999px; overflow:hidden; }
-    .bar{ height:100%; width:0%; background:var(--accent-grad); border-radius:999px; transition:width .45s cubic-bezier(.2,.7,.2,1); }
-    .q-step h3{ margin:.6rem 0 .35rem; font-size:20px; font-weight:800 }
-    .opt-wrap{ display:grid; gap:12px; margin-top:10px }
-    .opt{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding:18px 16px; border-radius:16px; background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.16); cursor:pointer; transition:.2s;
-      font-size:16px; line-height:1.3; min-height:56px;
-      touch-action: manipulation;
-    }
-    .opt:active{ transform:scale(.99) }
-    .opt:hover{ border-color:rgba(255,255,255,.24) }
-    .opt.selected{ outline:2px solid rgba(34,211,238,.55); background:rgba(255,255,255,.12) }
-    .stepper{ display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted) }
-    .step-dot{ width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,.22) }
-    .step-dot.active{ background: linear-gradient(135deg, #10b981, #22d3ee) }
-
-    /* Hide old action rows completely (no Next buttons) */
-    .quiz-actions{ display:none !important; }
-
-    /* ========== Service Cards ========== */
-    .services{ padding:26px 0 }
-    .svc-grid{ display:grid; gap:12px }
-    @media(min-width:720px){ .svc-grid{ grid-template-columns:repeat(2,1fr) } }
-    @media(min-width:1024px){ .svc-grid{ grid-template-columns:repeat(3,1fr) } }
-    .svc{
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
-      border:1px solid rgba(255,255,255,.14);
-      border-radius:18px; padding:16px; display:grid; gap:8px;
-      transition:.25s; position:relative; overflow:hidden;
-    }
-    .svc:hover{ transform:translateY(-2px); border-color:rgba(255,255,255,.24) }
-    .svc h4{ margin:0; font-size:16px }
-    .svc p{ margin:0; color:var(--muted); font-size:13px }
-    .icon{
-      width:36px; height:36px; border-radius:12px; display:grid; place-items:center;
-      background:linear-gradient(135deg, rgba(34,211,238,.3), rgba(16,185,129,.35));
-      border:1px solid rgba(255,255,255,.24)
-    }
-
-    /* ========== Subsidy / CTA Strip ========== */
-    .strip{
-      margin:10px 0; padding:14px; border-radius:16px;
-      background:linear-gradient(90deg, rgba(163,230,53,.12), rgba(34,211,238,.1));
-      border:1px solid rgba(255,255,255,.14); display:grid; gap:6px;
-    }
-    .strip strong{ color:#eafff7 }
-
-    /* ========== Testimonials (simple loop) ========== */
-    .testimonials{ padding:20px 0 16px }
-    .t-card{
-      display:grid; gap:8px; padding:14px; border-radius:16px;
-      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12)
-    }
-    .stars{ letter-spacing:1px; color:#fde68a }
-
-    /* ========== Floating Call (pre-congo; we will hide it on congo) ========== */
-    .float-cta{
-      position:fixed; left:0; right:0; bottom:14px; z-index:60; pointer-events:none;
-      display:grid; place-items:center;
-    }
-    .float-wrap{
-      pointer-events:auto; display:flex; gap:10px; align-items:center; justify-content:center;
-      padding:8px; border-radius:999px; background:rgba(10,15,18,.62);
-      border:1px solid rgba(255,255,255,.12); backdrop-filter: blur(10px);
-    }
-    .call-big, .wa-big{
-      display:inline-flex; align-items:center; gap:10px; border:none; cursor:pointer; font-weight:800;
-      padding:14px 18px; border-radius:999px; transition:.22s; font-size:16px;
-    }
-    .call-big{ background:var(--cta-grad); color:#06231c; box-shadow:0 16px 34px rgba(34,211,238,.35) }
-    .wa-big{ background:#22c55e; color:#03170f; }
-    .float-cta.hide{ opacity:0; visibility:hidden; transform: translateY(12px); transition:.25s }
-    .float-cta.show{ opacity:1; visibility:visible; transform: translateY(0); transition:.35s }
-
-    /* ========== Footer ========== */
-    footer{
-      border-top:1px solid rgba(255,255,255,.1);
-      background:linear-gradient(180deg, rgba(10,15,18,.7), rgba(10,15,18,.9));
-      padding:24px 0 120px; /* leave space for floating CTA */
-    }
-    .fine{ color:#9fcab9; font-size:12px }
-
-    /* ========== Appear animations ========== */
-    [data-anim]{ opacity:0; transform: translateY(14px); transition: all .6s cubic-bezier(.2,.7,.2,1) }
-    [data-anim].in{ opacity:1; transform:none }
-
-    /* ========== CONGRATS (Congo) FULL SCREEN ========== */
-    #congo{
-      position:relative; min-height:100dvh; display:grid; place-items:center; text-align:center;
-      padding:24px; overflow:hidden;
-      background:
-        radial-gradient(800px 500px at 20% -10%, rgba(250,204,21,.35), transparent 60%),
-        radial-gradient(800px 500px at 110% 10%, rgba(34,197,94,.35), transparent 60%),
-        linear-gradient(180deg, #0b1220, #0f172a 60%, #0b1220);
-    }
-    #congo .card{
-      max-width:720px; width:100%;
-      background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2);
-      border-radius:24px; padding:22px; box-shadow:0 30px 60px rgba(0,0,0,.25);
-      display:grid; gap:14px;
-    }
-    #congo h2{
-      margin:0; font-family:Poppins, Inter, sans-serif;
-      font-size:clamp(26px,6.5vw,44px);
-      background:linear-gradient(120deg, #34d399, #fde047, #22d3ee);
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-    }
-    #congo p{ margin:0; color:#d5f5ea; font-size:clamp(14px,4vw,18px) }
-    .big-call{
-      margin-top:6px; display:inline-flex; align-items:center; gap:12px; border:none; cursor:pointer;
-      font-weight:900; letter-spacing:.3px;
-      padding:16px 22px; border-radius:999px; font-size:18px;
-      background:linear-gradient(135deg, #22d3ee, #10b981 60%, #a3e635);
-      color:#06231c; box-shadow:0 22px 44px rgba(34,211,238,.35), 0 6px 0 rgba(0,0,0,.25) inset;
-      transform: translateZ(0);
-      animation: throb 1.6s ease-in-out infinite;
-    }
-    .big-call:active{ transform:scale(.98) }
-    @keyframes throb{ 0%,100%{box-shadow:0 22px 44px rgba(34,211,238,.35)} 50%{box-shadow:0 28px 58px rgba(34,211,238,.55)} }
-    .wa-cta{
-      display:inline-flex; align-items:center; gap:10px; margin-top:10px;
-      background:#22c55e; color:#032015; padding:12px 16px; border-radius:999px; font-weight:800;
-    }
-
-    /* Confetti */
-    .confetti{ position:absolute; inset:0; pointer-events:none; overflow:hidden }
-    .confetti i{
-      position:absolute; top:-10vh; width:10px; height:14px; border-radius:2px;
-      opacity:.9; animation: fall linear forwards;
-    }
-    @keyframes fall{
-      to{ transform: translateY(120vh) rotate(540deg) }
-    }
+    .foot .links{ margin-top:.4rem; display:flex; flex-wrap:wrap; gap:.8rem; justify-content:center; }
+    .divider{ height:1px; width:100%; background:#cbd5e1; margin:.8rem 0; }
   </style>
 </head>
 <body>
+
   <!-- Header -->
-  <header id="site-header">
-    <div class="container nav">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <span>SphTraders</span>
+  <header class="header">
+    <div class="brand">
+      <div class="logo"><i class="fa-solid fa-sun"></i></div>
+      <div>
+        <div>SPG</div>
+        <div class="tagline" style="font-size:.8rem;">Smart. Powerful. Green.</div>
       </div>
-      <a class="call-mini" href="tel:+919999999999" aria-label="Call SphTraders">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V21a1 1 0 01-1 1C10.3 22 2 13.7 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z"/></svg>
-        Call
-      </a>
     </div>
   </header>
 
-  <!-- MAIN CONTENT WRAPPER (we will hide it on congo) -->
-  <main id="content">
-    <!-- Hero -->
-    <section class="hero" id="hero">
-      <div class="pulse"></div>
-      <div class="container hero-wrap" data-anim>
-        <span class="pill">
-          <span class="tag">Save up to 70% on bills</span>
-          <span aria-hidden="true">•</span>
-          30% faster install times
-        </span>
-        <h1>Go Solar the Smart Way — <br/>Fast, Affordable & Subsidy-Ready</h1>
-        <p>Answer 3 quick questions to check eligibility and unlock a direct call with our solar experts.</p>
+  <!-- Live bar (no image, real LIVE icon) -->
+  <div class="livebar">
+    <span class="live-dot" aria-hidden="true"></span>
+    <span class="live-text">LIVE</span>
+    <span class="live-divider">•</span>
+    <span>Site surveys booked today:</span>
+    <span class="live-count" id="liveCount">213</span>
+  </div>
 
-        <!-- Quick highlights -->
-        <div class="hero-cards">
-          <div class="glass shadow" style="padding:14px; border-radius:16px" data-anim>
-            <strong>Free Site Survey</strong>
-            <p style="margin:.25rem 0 0; color:var(--muted); font-size:13px">We design what fits your roof & budget.</p>
-          </div>
-          <div class="glass shadow" style="padding:14px; border-radius:16px" data-anim>
-            <strong>Subsidy & Loans</strong>
-            <p style="margin:.25rem 0 0; color:var(--muted); font-size:13px">End-to-end paperwork & assistance.</p>
-          </div>
-          <div class="glass shadow" style="padding:14px; border-radius:16px" data-anim>
-            <strong>24/7 Support</strong>
-            <p style="margin:.25rem 0 0; color:var(--muted); font-size:13px">Performance monitoring & warranty.</p>
-          </div>
-        </div>
+  <main class="container">
+    <h1 class="title">Check Your Solar Savings Eligibility</h1>
+    <p class="subtitle">Takes 60 seconds. No obligation—see if you qualify for subsidy & low-cost financing.</p>
+
+    <!-- Slider with your two images (plus a third cloned visual) -->
+    <section class="slider" aria-label="SPG solar showcase">
+      <div class="slides" id="slides">
+        <div class="slide slide-1" role="img" aria-label="SPG — Residential rooftop solar"></div>
+        <div class="slide slide-2" role="img" aria-label="SPG — Commercial solar plants"></div>
+        <div class="slide slide-3" role="img" aria-label="SPG — Savings & sustainability"></div>
+      </div>
+      <div class="slider-arrows">
+        <button class="arrow" id="prevBtn" aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="arrow" id="nextBtn" aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+      <div class="dots" id="dots"></div>
+    </section>
+
+    <!-- Quiz -->
+    <div class="chip">Answer the questions below to proceed</div>
+
+    <section class="card" id="quizCard">
+      <div class="q-title" id="qTitle">What’s the purpose of your solar setup?</div>
+
+      <div class="answers" id="answers">
+        <button class="btn btn-primary" onclick="answerPurpose('Residential')">Residential</button>
+        <button class="btn btn-outline" onclick="answerPurpose('Homes')">Homes</button>
+        <button class="btn btn-outline" onclick="answerPurpose('Commercial')">Commercial</button>
       </div>
 
-      <!-- Questionnaire -->
-      <div class="container" style="margin-top:18px">
-        <div class="quiz-card shadow" id="quiz" data-anim>
-          <div class="quiz-head">
-            <div class="stepper" aria-live="polite">
-              <span class="step-dot active" id="dot-1"></span>
-              <span class="step-dot" id="dot-2"></span>
-              <span class="step-dot" id="dot-3"></span>
-              <span style="margin-left:6px">Step <strong id="stepNo">1</strong> of 3</span>
-            </div>
-            <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
-          </div>
-
-          <!-- Step 1 -->
-          <div class="q-step" data-step="1">
-            <h3>What’s the purpose of your solar setup?</h3>
-            <div class="opt-wrap">
-              <button class="opt" data-value="Residential" data-key="purpose">
-                <span>Residential</span>
-                <span class="tag">Homes</span>
-              </button>
-              <button class="opt" data-value="Commercial" data-key="purpose">
-                <span>Commercial</span>
-                <span class="tag">Shops • Offices • Industry</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="q-step hide" data-step="2">
-            <h3>Are you a…</h3>
-            <div class="opt-wrap">
-              <button class="opt" data-value="Homeowner" data-key="role"><span>Homeowner</span></button>
-              <button class="opt" data-value="Tenant" data-key="role"><span>Tenant</span></button>
-            </div>
-            <div style="margin-top:8px; display:flex; justify-content:flex-start;">
-              <button id="back-2" class="opt" style="padding:10px 14px; min-height:44px; background:rgba(255,255,255,.06)">← Back</button>
-            </div>
-          </div>
-
-          <!-- Step 3 -->
-          <div class="q-step hide" data-step="3">
-            <h3>What’s your average monthly electricity bill?</h3>
-            <div class="opt-wrap">
-              <button class="opt" data-value="< ₹2,000" data-key="bill"><span>&lt; ₹2,000</span></button>
-              <button class="opt" data-value="> ₹2,000" data-key="bill"><span>&gt; ₹2,000</span></button>
-            </div>
-            <div style="margin-top:8px; display:flex; justify-content:flex-start;">
-              <button id="back-3" class="opt" style="padding:10px 14px; min-height:44px; background:rgba(255,255,255,.06)">← Back</button>
-            </div>
-          </div>
-
-          <!-- Result (kept for pre-congo summary if needed) -->
-          <div id="result" class="hide" aria-live="polite"></div>
-        </div>
+      <div id="liveRow" style="display:flex; align-items:center; justify-content:center; gap:.6rem; margin-top:.8rem; color:#065f46;">
+        <span class="live-dot" aria-hidden="true" style="background:#16a34a; box-shadow:0 0 8px #16a34a99;"></span>
+        <em><span id="claiming" style="font-weight:800; color:#059669;">79</span>&nbsp;people are checking right now</em>
       </div>
     </section>
 
-    <!-- Services -->
-    <section class="services" id="services">
-      <div class="container">
-        <h2 style="margin:0 0 8px; font-family:Poppins; font-size:clamp(22px,4.5vw,34px)">Everything you need — end to end</h2>
-        <p style="margin:0 0 14px; color:var(--muted)">From first call to 24/7 after-sales, we’ve got you covered.</p>
+    <!-- Status -->
+    <div class="status hidden" id="statusBox">
+      <span id="statusMsg">Reviewing your answers…</span>
+    </div>
 
-        <div class="svc-grid">
-          <!-- 1 -->
-          <article class="svc" data-anim>
-            <div class="icon" aria-hidden="true">
-              <!-- sun icon -->
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#03241c"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zm10.48 0l1.79-1.79 1.41 1.41-1.79 1.8-1.41-1.42zM12 4V1h-0v3h0zm0 19v-3h0v3h0zM4 12H1v0h3v0zm19 0h-3v0h3v0zM6.76 19.16l-1.42 1.42-1.79-1.8 1.41-1.41 1.8 1.79zm10.48 0l1.8 1.79 1.41-1.41-1.79-1.8-1.42 1.42zM12 7a5 5 0 100 10 5 5 0 000-10z"/></svg>
-            </div>
-            <h4>Free Solar Consultation & Site Survey</h4>
-            <p>We assess your roof, shade, load profile, and ROI so you get facts, not fluff.</p>
-          </article>
-          <!-- 2 -->
-          <article class="svc" data-anim>
-            <div class="icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#03241c"><path d="M3 3h18v2H3V3zm0 4h18v6H3V7zm0 8h18v2H3v-2zm0 4h18v2H3v-2z"/></svg>
-            </div>
-            <h4>Custom System Design & Engineering</h4>
-            <p>Tier-1 panels, high-efficiency inverters, and a design built around your budget.</p>
-          </article>
-          <!-- 3 -->
-          <article class="svc" data-anim>
-            <div class="icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#03241c"><path d="M20 8h-3l-2-3H9L7 8H4l-1 2v8a2 2 0 002 2h14a2 2 0 002-2v-8l-1-2zM5 18v-6h14v6H5z"/></svg>
-            </div>
-            <h4>Professional Installation</h4>
-            <p>Neat wiring, safe mounting, and quick commissioning with quality checks.</p>
-          </article>
-          <!-- 4 -->
-          <article class="svc" data-anim>
-            <div class="icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#03241c"><path d="M12 1l3 7h7l-5.5 4.2L18 21l-6-4-6 4 1.5-8.8L2 8h7z"/></svg>
-            </div>
-            <h4>Government Subsidy & Loan Assistance</h4>
-            <p>We handle the paperwork so you can claim benefits without the headache.</p>
-          </article>
-          <!-- 5 -->
-          <article class="svc" data-anim>
-            <div class="icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#03241c"><path d="M12 8a4 4 0 100 8 4 4 0 000-8zm0-6a1 1 0 011 1v2a1 1 0 01-2 0V3a1 1 0 011-1zm0 18a1 1 0 011 1v2a1 1 0 01-2 0v-2a1 1 0 011-1zM1 13a1 1 0 010-2h2a1 1 0 010 2H1zm20 0a1 1 0 010-2h2a1 1 0 010 2h-2zM4.22 5.64a1 1 0 011.42-1.42l1.41 1.41A1 1 0 016.64 7.05L5.22 5.64zm12.73 12.72a1 1 0 011.41 1.42l-1.41 1.41a1 1 0 01-1.42-1.41l1.42-1.42zM4.22 18.36l1.42-1.42a1 1 0 011.41 1.42l-1.41 1.41a1 1 0 01-1.42-1.41zM18.36 4.22l-1.42 1.42A1 1 0 1115.53 4.2l1.41-1.41a1 1 0 011.42 1.41z"/></svg>
-            </div>
-            <h4>Maintenance & Performance Monitoring</h4>
-            <p>We track generation and keep your system at peak performance.</p>
-          </article>
-          <!-- 6 -->
-          <article class="svc" data-anim>
-            <div class="icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#03241c"><path d="M12 2l9 4v6c0 5-3.8 9.7-9 10-5.2-.3-9-5-9-10V6l9-4z"/></svg>
-            </div>
-            <h4>Warranty & 24/7 After-Sales Support</h4>
-            <p>Bankable warranties and a support team that actually picks up.</p>
-          </article>
-        </div>
-
-        <div class="strip" style="margin-top:14px" data-anim>
-          <strong>Limited-time incentives:</strong> zero-cost consultation, priority site survey slots, and fast-track installs for eligible pincode areas.
-        </div>
+    <!-- Congrats -->
+    <section class="congrats hidden" id="congratsBox">
+      <div style="font-size:1.35rem; font-weight:900; color:#059669;">
+        🎉 Congratulations! You’re Eligible for Solar Savings
       </div>
-    </section>
 
-    <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
-      <div class="container">
-        <h2 style="margin:0 0 10px; font-family:Poppins; font-size:clamp(20px,4vw,30px)">Loved by homeowners & businesses</h2>
-        <div class="grid" id="ts-grid"><!-- populated by JS --></div>
+      <div class="summary" id="summaryBox">
+        Purpose: <b id="sumPurpose">Residential</b> • You are a <b>Homeowner</b> • Bill: <b id="sumBill">&lt; ₹2,000</b>.<br/>
+        Our engineer will call to plan your site survey and guide subsidy/loan steps.
       </div>
+
+      <div class="cta-stack">
+        <!-- Replace phone number and WhatsApp number as needed -->
+        <a class="btn cta-call" href="tel:+919000000000">
+          Call SphTraders Now
+        </a>
+        <a class="btn cta-wa" target="_blank" rel="noopener" href="https://wa.me/919000000000?text=Hi%20SPG%2C%20I%20want%20to%20go%20solar.">
+          <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+        </a>
+      </div>
+
+      <p class="subtitle" style="margin:.8rem 0 0;">
+        Our team will help with system design, subsidy & loan paperwork, and installation timeline.
+      </p>
+
+      <div class="timer"><span id="tmM">3</span>:<span id="tmS">00</span></div>
     </section>
   </main>
 
   <!-- Footer -->
-  <footer id="site-footer">
-    <div class="container">
-      <div style="display:grid; gap:8px" data-anim>
-        <strong>SphTraders</strong>
-        <span class="fine">© <span id="yr"></span> SphTraders. All rights reserved.</span>
-        <span class="fine">By proceeding, you agree to be contacted by phone/WhatsApp/SMS for your solar request.</span>
-      </div>
+  <footer class="foot">
+    <div>© <span id="year"></span> SPG — Smart. Powerful. Green.</div>
+    <div class="divider"></div>
+    <div class="links">
+      <a href="/terms.html">Terms & Condition</a>
+      <span>•</span>
+      <a href="/privacy.html">Privacy Policy</a>
     </div>
   </footer>
 
-  <!-- Floating Call/WA (pre-congo; hidden on congo) -->
-  <div class="float-cta hide" id="floatCta" aria-live="polite">
-    <div class="float-wrap">
-      <a class="call-big" href="tel:+919999999999" id="callBtn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="#06231c" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V21a1 1 0 01-1 1C10.3 22 2 13.7 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z"/></svg>
-        Call Now
-      </a>
-      <a class="wa-big" id="waBtn" target="_blank" rel="noopener" href="#">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="#03170f" aria-hidden="true"><path d="M20.5 3.5A11.5 11.5 0 106.8 22.2l1-3.6a8.8 8.8 0 1112.7-12.7zM7 20.1l.6-2.1.1-.4-.3-.3A9.5 9.5 0 1120.5 4a9.5 9.5 0 01-13.4 13.4l-.3-.3-.4.1L7 20.1zm9.8-6.6c-.2-.1-1.2-.6-1.3-.6s-.3-.1-.5.1c-.1.2-.5.6-.6.7-.1.1-.2.1-.4 0a7.3 7.3 0 01-2.2-1.3 8.4 8.4 0 01-1.5-1.8c-.1-.2 0-.3.1-.4.1-.1.3-.4.4-.5.1-.2 0-.3 0-.5 0-.1-.5-1.1-.6-1.3-.1-.3-.3-.3-.5-.3h-.4c-.1 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 3.9 3.4.5.2.9.3 1.2.4.5.2 1 .1 1.4.1.4 0 1.2-.5 1.4-1 .2-.5.2-.9.1-1 0-.1-.2-.1-.5-.2z"/></svg>
-        WhatsApp
-      </a>
-    </div>
-  </div>
-
-  <!-- CONGRATS SCREEN (hidden until finish) -->
-  <section id="congo" class="hide" aria-live="polite">
-    <div class="confetti" id="confetti"></div>
-    <div class="card">
-      <h2>🎉 Congratulations! You’re Eligible for Solar Savings</h2>
-      <p id="congo-summary"></p>
-      <a id="congo-call" class="big-call" href="#">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="#06231c" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V21a1 1 0 01-1 1C10.3 22 2 13.7 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z"/></svg>
-        Call SphTraders Now
-      </a>
-      <a id="congo-wa" class="wa-cta" href="#" target="_blank" rel="noopener">Chat on WhatsApp</a>
-      <p style="opacity:.85;">Our team will help with system design, subsidy & loan paperwork, and installation timeline.</p>
-    </div>
-  </section>
-
   <script>
-    // ===== Config =====
-    const phone = '+919999999999'; // <-- change to SphTraders phone number
-    const waNumber = '919999999999'; // international format without +
-
-    // ===== Elements =====
-    const steps = Array.from(document.querySelectorAll('.q-step'));
-    const bar = document.getElementById('bar');
-    const stepNo = document.getElementById('stepNo');
-    const dots = [1,2,3].map(n=>document.getElementById('dot-'+n));
-    const floatCta = document.getElementById('floatCta');
-    const result = document.getElementById('result');
-    const waBtn = document.getElementById('waBtn');
-
-    const contentWrap = document.getElementById('content');
-    const siteHeader = document.getElementById('site-header');
-    const siteFooter = document.getElementById('site-footer');
-    const congo = document.getElementById('congo');
-    const congoSummary = document.getElementById('congo-summary');
-    const congoCall = document.getElementById('congo-call');
-    const congoWa = document.getElementById('congo-wa');
-    const confettiLayer = document.getElementById('confetti');
-
-    // State
-    const state = { purpose:null, role:null, bill:null };
-
-    // Helpers
-    const updateProgress = (i) => {
-      const pct = (i/3)*100;
-      bar.style.width = pct + '%';
-      stepNo.textContent = i;
-      dots.forEach((d,idx)=> d.classList.toggle('active', idx < i));
-    };
-
-    const showStep = (n) => {
-      steps.forEach(s => s.classList.add('hide'));
-      const target = steps.find(s => s.dataset.step == n);
-      if (target) target.classList.remove('hide');
-      updateProgress(n);
-      target?.scrollIntoView({behavior:'smooth', block:'center'});
-    };
-
-    function buildWaMsg(s){
-      return encodeURIComponent(`Hi SphTraders, I am interested in solar.
-Purpose: ${s.purpose || '—'}
-Role: ${s.role || '—'}
-Bill: ${s.bill || '—'}
-Please call me back.`);
+    /* ------- Live counters ------- */
+    const liveCount = document.getElementById('liveCount');
+    const claiming = document.getElementById('claiming');
+    if (liveCount){
+      setInterval(()=> {
+        const n = parseInt(liveCount.textContent,10);
+        liveCount.textContent = n + Math.floor(Math.random()*3+1);
+      }, 3000);
+    }
+    if (claiming){
+      setInterval(()=> {
+        const n = parseInt(claiming.textContent,10);
+        claiming.textContent = n + Math.floor(Math.random()*2+1);
+      }, 2800);
     }
 
-    function renderTestimonials(){
-      const testimonials = [
-        {name:'Vikram S.', tag:'Homeowner • Lucknow', text:'Bill down by ~65%. Team was quick and neat with installation.'},
-        {name:'Aisha K.', tag:'Boutique Owner • Kanpur', text:'Subsidy paperwork was a breeze. Monitoring app is super helpful.'},
-        {name:'Rahul M.', tag:'Homeowner • Prayagraj', text:'Clear ROI explanation. Got grid-tie inverter and it’s rock solid.'},
-      ];
-      const grid = document.getElementById('ts-grid');
-      grid.innerHTML = '';
-      testimonials.forEach(t=>{
-        const el = document.createElement('div');
-        el.className = 't-card';
-        el.setAttribute('data-anim','');
-        el.innerHTML = `
-          <div class="stars">★★★★★</div>
-          <strong>${t.name}</strong>
-          <span style="color:var(--muted); font-size:12px">${t.tag}</span>
-          <p style="margin:0">${t.text}</p>
-        `;
-        grid.appendChild(el);
-      });
-    }
+    /* ------- Year ------- */
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    function dropConfetti(count=60){
-      confettiLayer.innerHTML = '';
-      for(let i=0;i<count;i++){
-        const piece = document.createElement('i');
-        const size = Math.random()*8 + 6; // 6-14
-        const left = Math.random()*100; // vw
-        const delay = Math.random()*1.2;
-        const duration = Math.random()*1.5 + 1.8;
-        const colors = ['#22d3ee','#10b981','#a3e635','#fbbf24','#fb7185'];
-        const color = colors[Math.floor(Math.random()*colors.length)];
-        piece.style.left = left + 'vw';
-        piece.style.background = color;
-        piece.style.width = size + 'px';
-        piece.style.height = (size*1.3) + 'px';
-        piece.style.animationDuration = duration + 's';
-        piece.style.animationDelay = delay + 's';
-        confettiLayer.appendChild(piece);
+    /* ------- Slider ------- */
+    const slides = document.getElementById('slides');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsWrap = document.getElementById('dots');
+    const total = 3;
+    let idx = 0, auto;
+
+    function renderDots(){
+      dotsWrap.innerHTML = '';
+      for(let i=0;i<total;i++){
+        const d = document.createElement('button');
+        d.className = 'dot' + (i===idx?' active':'');
+        d.setAttribute('aria-label','Go to slide ' + (i+1));
+        d.onclick = () => { idx=i; update(); restartAuto(); };
+        dotsWrap.appendChild(d);
       }
     }
+    function update(){
+      slides.style.transform = `translateX(-${idx*100}%)`;
+      [...dotsWrap.children].forEach((d,i)=> d.classList.toggle('active', i===idx));
+    }
+    function next(){ idx = (idx+1)%total; update(); }
+    function prev(){ idx = (idx-1+total)%total; update(); }
+    function startAuto(){ auto = setInterval(next, 3800); }
+    function restartAuto(){ clearInterval(auto); startAuto(); }
 
-    function showCongo(){
-      // Hide everything else
-      siteHeader.classList.add('hide');
-      contentWrap.classList.add('hide');
-      siteFooter.classList.add('hide');
-      floatCta.classList.add('hide');
+    prevBtn.addEventListener('click', ()=>{ prev(); restartAuto(); });
+    nextBtn.addEventListener('click', ()=>{ next(); restartAuto(); });
 
-      // Update theme slightly brighter for celebration (optional)
-      document.documentElement.style.setProperty('--hero-grad',
-        'radial-gradient(1200px 600px at 10% -20%, rgba(253,224,71,.24), transparent 60%), radial-gradient(900px 600px at 110% 0%, rgba(34,197,94,.24), transparent 60%), linear-gradient(180deg, #0b1220 0%, #0f172a 60%, #0b1220 100%)');
+    renderDots(); update(); startAuto();
 
-      // Populate congo content
-      congoSummary.textContent =
-        `Purpose: ${state.purpose || '—'} • You are a ${state.role || '—'} • Bill: ${state.bill || '—'}. ` +
-        `Our engineer will call to plan your site survey and guide subsidy/loan steps.`;
+    /* ------- Quiz Logic ------- */
+    const qTitle = document.getElementById('qTitle');
+    const answers = document.getElementById('answers');
+    const quizCard = document.getElementById('quizCard');
+    const statusBox = document.getElementById('statusBox');
+    const statusMsg = document.getElementById('statusMsg');
+    const congratsBox = document.getElementById('congratsBox');
+    const sumPurpose = document.getElementById('sumPurpose');
+    const sumBill = document.getElementById('sumBill');
+    const tmM = document.getElementById('tmM');
+    const tmS = document.getElementById('tmS');
 
-      congoCall.href = `tel:${phone}`;
-      const waText = buildWaMsg(state);
-      congoWa.href = `https://wa.me/${waNumber}?text=${waText}`;
+    let selected = { purpose: null, bill: null };
 
-      // Show congo
-      congo.classList.remove('hide');
-
-      // Confetti!
-      dropConfetti(80);
-      setTimeout(()=>dropConfetti(40), 1800); // burst 2
+    function answerPurpose(p){
+      selected.purpose = (p === 'Homes') ? 'Residential' : p; // treat "Homes" as Residential
+      // Next question
+      qTitle.textContent = "What’s your average monthly electricity bill?";
+      answers.innerHTML = `
+        <button class="btn btn-primary" onclick="answerBill('< ₹2,000')">&lt; ₹2,000</button>
+        <button class="btn btn-outline" onclick="answerBill('> ₹2,000')">&gt; ₹2,000 <span class='badge'>Save More</span></button>
+      `;
+      smoothScrollTo(quizCard.offsetTop - 12, 500);
     }
 
-    // Initialize interaction — auto-advance on selection
-    steps.forEach(step => {
-      const keyButtons = step.querySelectorAll('.opt');
-      keyButtons.forEach(btn=>{
-        // Skip Back buttons in steps 2 & 3
-        if (btn.id === 'back-2' || btn.id === 'back-3') return;
-
-        btn.addEventListener('click', ()=>{
-          const key = btn.dataset.key;
-          const value = btn.dataset.value;
-
-          // toggle selection visuals
-          keyButtons.forEach(b=>b.classList.remove('selected'));
-          btn.classList.add('selected');
-
-          // set state
-          state[key]=value;
-
-          // Small delay to let selection animate then advance
-          const current = Number(step.dataset.step);
-          setTimeout(()=>{
-            if(current < 3){
-              showStep(current + 1);
-            }else{
-              // FINISH -> Congo (celebrations only)
-              // Store in localStorage
-              try{ localStorage.setItem('sphtraders_lead', JSON.stringify({ ...state, ts: Date.now() })); }catch(e){}
-              // Set WA link for pre-congo floating CTA (not shown after congo)
-              const encoded = buildWaMsg(state);
-              waBtn.href = `https://wa.me/${waNumber}?text=${encoded}`;
-              // Reveal floating CTA briefly (optional) then go congo
-              floatCta.classList.remove('hide'); floatCta.classList.add('show');
-              setTimeout(showCongo, 300); // quick transition
-            }
-          }, 150);
-        });
-      });
-    });
-
-    // Back buttons
-    document.getElementById('back-2').addEventListener('click', ()=> showStep(1));
-    document.getElementById('back-3').addEventListener('click', ()=> showStep(2));
-
-    // Initial
-    function init(){
-      showStep(1);
-      renderTestimonials();
-      document.getElementById('yr').textContent = new Date().getFullYear();
-
-      // Scroll-reveal animations
-      const observer = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{ if (e.isIntersecting) e.target.classList.add('in'); });
-      },{root:null, threshold:.12});
-      document.querySelectorAll('[data-anim]').forEach(el=>observer.observe(el));
+    function answerBill(b){
+      selected.bill = b;
+      runStatus(() => showCongrats());
     }
-    init();
+
+    function runStatus(done){
+      quizCard.classList.add('hidden');
+      statusBox.classList.remove('hidden');
+
+      statusMsg.textContent = "Reviewing your answers…";
+      setTimeout(()=> {
+        statusMsg.textContent = "Checking subsidy & financing availability…";
+        setTimeout(()=> {
+          statusMsg.textContent = "Confirming eligibility…";
+          setTimeout(done, 1100);
+        }, 1100);
+      }, 1100);
+      smoothScrollTo(0, 500);
+    }
+
+    function showCongrats(){
+      statusBox.classList.add('hidden');
+      congratsBox.classList.remove('hidden');
+
+      sumPurpose.textContent = selected.purpose || 'Residential';
+      sumBill.textContent = selected.bill || '< ₹2,000';
+
+      startTimer(3*60); // 3 minutes
+      smoothScrollTo(0, 500);
+    }
+
+    function startTimer(total){
+      const t = setInterval(()=>{
+        const m = Math.floor(total/60);
+        const s = total % 60;
+        tmM.textContent = m;
+        tmS.textContent = (s<10?'0':'') + s;
+        total--;
+        if (total < 0) clearInterval(t);
+      }, 1000);
+    }
+
+    function smoothScrollTo(targetY=0, duration=600){
+      const startY = window.pageYOffset;
+      const dist = targetY - startY;
+      let start=null;
+      function step(ts){
+        if(!start) start = ts;
+        const p = Math.min(1, (ts-start)/duration);
+        const ease = p<.5 ? 2*p*p : -1+(4-2*p)*p;
+        window.scrollTo(0, startY + dist*ease);
+        if(p<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    // expose needed funcs
+    window.answerPurpose = answerPurpose;
+    window.answerBill = answerBill;
   </script>
 </body>
 </html>
