@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SphTraders — Smarter Solar for Homes & Businesses</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0fa36b" />
+  <meta name="description" content="SphTraders: Free solar consultation, custom design, pro installation, subsidy & loan help, maintenance & monitoring, and 24/7 support." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========== Design Tokens ========== */
+    :root{
+      --bg:#0a0f12;            /* page background */
+      --ink:#0b1b15;           /* dark ink on light cards */
+      --text:#eaf7f1;          /* body on dark */
+      --muted:#b9d9cb;         /* secondary on dark */
+      --brand:#10b981;         /* emerald */
+      --brand-2:#a3e635;       /* lime accent */
+      --brand-3:#22d3ee;       /* cyan accent */
+      --card:#ffffff;
+      --ring: rgba(16,185,129,.35);
+      --glass: rgba(255,255,255,0.08);
+      --glass-2: rgba(255,255,255,0.12);
+      --shadow: 0 10px 30px rgba(16,185,129,.15);
+      --radius: 18px;
+      --max: 1120px;
+      --hero-grad: radial-gradient(1200px 600px at 80% -20%, rgba(34,211,238,.25), transparent 60%),
+                   radial-gradient(900px 600px at -10% 20%, rgba(16,185,129,.25), transparent 60%),
+                   linear-gradient(180deg, #0a0f12 0%, #0f1720 60%, #0a0f12 100%);
+      --accent-grad: linear-gradient(120deg, var(--brand) 0%, var(--brand-2) 50%, var(--brand-3) 100%);
+      --cta-grad: linear-gradient(135deg, #10b981 0%, #22d3ee 100%);
+    }
+
+    /* ========== Reset-ish ========== */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--hero-grad);
+      color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; height:auto; display:block}
+    .container{width:100%; max-width:var(--max); margin:0 auto; padding:0 16px}
+
+    /* ========== Utility ========== */
+    .pill{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12)}
+    .tag{display:inline-block; font-size:12px; letter-spacing:.3px; text-transform:uppercase; color:#052e22; background:#a7f3d0; padding:6px 10px; border-radius:999px}
+    .grid{display:grid; gap:16px}
+    .hide{display:none !important}
+    .blur-edge{backdrop-filter:saturate(150%) blur(8px)}
+    .glass{background:var(--glass); border:1px solid rgba(255,255,255,.14); border-radius:var(--radius)}
+    .ring{box-shadow:0 0 0 6px var(--ring)}
+    .shadow{box-shadow:var(--shadow)}
+    .sr{position:absolute;clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}
+
+    /* ========== Header ========== */
+    header{
+      position:sticky; top:0; z-index:50;
+      background:linear-gradient(180deg, rgba(10,15,18,.85), rgba(10,15,18,.35) 60%, transparent);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(10px);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px;
+    }
+    .logo{
+      width:36px; height:36px; border-radius:12px; background:var(--accent-grad);
+      position:relative; overflow:hidden; box-shadow:0 6px 16px rgba(34,211,238,.35);
+    }
+    .logo::after{
+      content:""; position:absolute; inset:6px; border-radius:10px;
+      background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 40%);
+      mix-blend-overlay;
+    }
+    .call-mini{
+      display:inline-flex; align-items:center; gap:10px;
+      background:var(--cta-grad); color:#03241c; padding:10px 14px; border-radius:12px; font-weight:600;
+      box-shadow:0 10px 24px rgba(34,211,238,.25);
+    }
+
+    /* ========== Hero ========== */
+    .hero{
+      position:relative; padding:64px 0 24px;
+    }
+    .hero-wrap{
+      display:grid; gap:18px; text-align:center; justify-items:center;
+    }
+    .hero h1{
+      font-family:Poppins, Inter, sans-serif;
+      font-size: clamp(28px, 6vw, 52px);
+      line-height:1.1; margin:0;
+      letter-spacing:.2px;
+      background:var(--accent-grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .hero p{
+      margin:4px 0 0; color:var(--muted);
+      font-size: clamp(14px, 3.4vw, 18px);
+    }
+    .hero-cards{margin-top:18px; display:grid; gap:12px; width:100%}
+    @media(min-width:720px){ .hero-cards{grid-template-columns: repeat(3, 1fr)} }
+
+    .pulse{
+      position:absolute; inset: -200px -120px auto auto; width:420px; height:420px;
+      background:radial-gradient(circle at 50% 50%, rgba(163,230,53,.12), transparent 60%);
+      filter: blur(28px); opacity:.8; pointer-events:none; animation: float 12s ease-in-out infinite;
+    }
+    @keyframes float{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+    /* ========== Questionnaire Card ========== */
+    .quiz-card{
+      border-radius:calc(var(--radius) + 2px);
+      border:1px solid rgba(255,255,255,.16);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      padding:16px; position:relative;
+    }
+    .quiz-head{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;
+    }
+    .progress{
+      height:8px; width:100%; background:rgba(255,255,255,.12); border-radius:999px; overflow:hidden;
+    }
+    .bar{
+      height:100%; width:0%; background:var(--accent-grad); border-radius:999px; transition:width .45s cubic-bezier(.2,.7,.2,1);
+    }
+    .q-step h3{ margin:.5rem 0 .25rem; font-size:18px; font-weight:700 }
+    .opt-wrap{ display:grid; gap:10px; margin-top:8px }
+    .opt{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:14px; border-radius:14px; background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12); cursor:pointer; transition:.25s;
+    }
+    .opt:hover{ transform:translateY(-1px); border-color:rgba(255,255,255,.22) }
+    .opt.selected{ outline:2px solid rgba(34,211,238,.55); background:rgba(255,255,255,.12) }
+    .stepper{
+      display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted)
+    }
+    .step-dot{ width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,.22) }
+    .step-dot.active{ background: linear-gradient(135deg, #10b981, #22d3ee) }
+
+    .quiz-actions{
+      display:flex; gap:10px; margin-top:10px;
+    }
+    .btn{
+      appearance:none; border:none; cursor:pointer; font-weight:700;
+      padding:12px 14px; border-radius:12px; transition:.2s; font-size:14px
+    }
+    .btn-next{ background:var(--cta-grad); color:#06231c; box-shadow:0 12px 26px rgba(34,211,238,.25) }
+    .btn-ghost{ background:rgba(255,255,255,.06); color:#dff5ec; border:1px solid rgba(255,255,255,.12) }
+    .btn[disabled]{ opacity:.6; cursor:not-allowed }
+
+    /* ========== Service Cards ========== */
+    .services{ padding:26px 0 }
+    .svc-grid{ display:grid; gap:12px }
+    @media(min-width:720px){ .svc-grid{ grid-template-columns:repeat(2,1fr) } }
+    @media(min-width:1024px){ .svc-grid{ grid-template-columns:repeat(3,1fr) } }
+    .svc{
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:18px; padding:16px; display:grid; gap:8px;
+      transition:.25s; position:relative; overflow:hidden;
+    }
+    .svc:hover{ transform:translateY(-2px); border-color:rgba(255,255,255,.24) }
+    .svc h4{ margin:0; font-size:16px }
+    .svc p{ margin:0; color:var(--muted); font-size:13px }
+    .icon{
+      width:36px; height:36px; border-radius:12px; display:grid; place-items:center;
+      background:linear-gradient(135deg, rgba(34,211,238,.3), rgba(16,185,129,.35));
+      border:1px solid rgba(255,255,255,.24)
+    }
+
+    /* ========== Subsidy / CTA Strip ========== */
+    .strip{
+      margin:10px 0; padding:14px; border-radius:16px;
+      background:linear-gradient(90deg, rgba(163,230,53,.12), rgba(34,211,238,.1));
+      border:1px solid rgba(255,255,255,.14); display:grid; gap:6px;
+    }
+    .strip strong{ color:#eafff7 }
+
+    /* ========== Testimonials (simple loop) ========== */
+    .testimonials{ padding:20px 0 16px }
+    .t-card{
+      display:grid; gap:8px; padding:14px; border-radius:16px;
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12)
+    }
+    .stars{ letter-spacing:1px; color:#fde68a }
+
+    /* ========== Result & Floating Call ========== */
+    .result{
+      margin-top:12px; padding:14px; border-radius:16px;
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.14); display:grid; gap:8px;
+    }
+    .float-cta{
+      position:fixed; left:0; right:0; bottom:14px; z-index:60; pointer-events:none;
+      display:grid; place-items:center;
+    }
+    .float-wrap{
+      pointer-events:auto; display:flex; gap:10px; align-items:center; justify-content:center;
+      padding:8px; border-radius:999px; background:rgba(10,15,18,.62);
+      border:1px solid rgba(255,255,255,.12); backdrop-filter: blur(10px);
+    }
+    .call-big, .wa-big{
+      display:inline-flex; align-items:center; gap:10px; border:none; cursor:pointer; font-weight:800;
+      padding:14px 18px; border-radius:999px; transition:.22s; font-size:16px;
+    }
+    .call-big{
+      background:var(--cta-grad); color:#06231c; box-shadow:0 16px 34px rgba(34,211,238,.35)
+    }
+    .wa-big{ background:#22c55e; color:#03170f; }
+    .float-cta.hide{ opacity:0; visibility:hidden; transform: translateY(12px); transition:.25s }
+    .float-cta.show{ opacity:1; visibility:visible; transform: translateY(0); transition:.35s }
+
+    /* ========== Footer ========== */
+    footer{
+      border-top:1px solid rgba(255,255,255,.1);
+      background:linear-gradient(180deg, rgba(10,15,18,.7), rgba(10,15,18,.9));
+      padding:24px 0 120px; /* leave space for floating CTA */
+    }
+    .fine{ color:#9fcab9; font-size:12px }
+
+    /* ========== Appear animations ========== */
+    [data-anim]{ opacity:0; transform: translateY(14px); transition: all .6s cubic-bezier(.2,.7,.2,1) }
+    [data-anim].in{ opacity:1; transform:none }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>SphTraders</span>
+      </div>
+      <a class="call-mini" href="tel:+919999999999" aria-label="Call SphTraders">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V21a1 1 0 01-1 1C10.3 22 2 13.7 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z"/></svg>
+        Call
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="pulse"></div>
+    <div class="container hero-wrap" data-anim>
+      <span class="pill">
+        <span class="tag">Save up to 70% on bills</span>
+        <span aria-hidden="true">•</span>
+        30% faster install times
+      </span>
+      <h1>Go Solar the Smart Way — <br/>Fast, Affordable & Subsidy-Ready</h1>
+      <p>Answer 3 quick questions to check eligibility and unlock a direct call with our solar experts.</p>
+
+      <!-- Quick highlights -->
+      <div class="hero-cards">
+        <div class="glass shadow" style="padding:14px; border-radius:16px" data-anim>
+          <strong>Free Site Survey</strong>
+          <p style="margin:.25rem 0 0; color:var(--muted); font-size:13px">We design what fits your roof & budget.</p>
+        </div>
+        <div class="glass shadow" style="padding:14px; border-radius:16px" data-anim>
+          <strong>Subsidy & Loans</strong>
+          <p style="margin:.25rem 0 0; color:var(--muted); font-size:13px">End-to-end paperwork & assistance.</p>
+        </div>
+        <div class="glass shadow" style="padding:14px; border-radius:16px" data-anim>
+          <strong>24/7 Support</strong>
+          <p style="margin:.25rem 0 0; color:var(--muted); font-size:13px">Performance monitoring & warranty.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Questionnaire -->
+    <div class="container" style="margin-top:18px">
+      <div class="quiz-card shadow" id="quiz" data-anim>
+        <div class="quiz-head">
+          <div class="stepper" aria-live="polite">
+            <span class="step-dot active" id="dot-1"></span>
+            <span class="step-dot" id="dot-2"></span>
+            <span class="step-dot" id="dot-3"></span>
+            <span style="margin-left:6px">Step <strong id="stepNo">1</strong> of 3</span>
+          </div>
+          <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="q-step" data-step="1">
+          <h3>What’s the purpose of your solar setup?</h3>
+          <div class="opt-wrap">
+            <button class="opt" data-value="Residential" data-key="purpose">
+              <span>Residential</span>
+              <span class="tag">Homes</span>
+            </button>
+            <button class="opt" data-value="Commercial" data-key="purpose">
+              <span>Commercial</span>
+              <span class="tag">Shops • Offices • Industry</span>
+            </button>
+          </div>
+          <div class="quiz-actions">
+            <button class="btn btn-ghost" id="skip-1" aria-label="Skip question 1">Skip</button>
+            <button class="btn btn-next" id="next-1" disabled>Next</button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="q-step hide" data-step="2">
+          <h3>Are you a…</h3>
+          <div class="opt-wrap">
+            <button class="opt" data-value="Homeowner" data-key="role"><span>Homeowner</span></button>
+            <button class="opt" data-value="Tenant" data-key="role"><span>Tenant</span></button>
+          </div>
+          <div class="quiz-actions">
+            <button class="btn btn-ghost" id="back-2">Back</button>
+            <button class="btn btn-next" id="next-2" disabled>Next</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="q-step hide" data-step="3">
+          <h3>What’s your average monthly electricity bill?</h3>
+          <div class="opt-wrap">
+            <button class="opt" data-value="< ₹2,000" data-key="bill"><span>&lt; ₹2,000</span></button>
+            <button class="opt" data-value="> ₹2,000" data-key="bill"><span>&gt; ₹2,000</span></button>
+          </div>
+          <div class="quiz-actions">
+            <button class="btn btn-ghost" id="back-3">Back</button>
+            <button class="btn btn-next" id="finish" disabled>See My Result</button>
+          </div>
+        </div>
+
+        <!-- Result -->
+        <div id="result" class="result hide" aria-live="polite">
+          <strong>You're a great fit for solar with SphTraders ⚡️</strong>
+          <p id="summary" style="margin:0; color:var(--muted)"></p>
+          <div class="strip">
+            <strong>Eligible for free consultation & site survey.</strong>
+            <span>We’ll also guide you through <u>government subsidy & low-interest loans</u>.</span>
+          </div>
+          <div class="quiz-actions">
+            <a href="tel:+919999999999" class="btn btn-next" style="flex:1; text-align:center">Call Now</a>
+            <a href="https://wa.me/919999999999?text=I%20am%20interested%20in%20SphTraders%20solar.%20Here%20are%20my%20answers..." class="btn btn-ghost" style="flex:1; text-align:center">Chat on WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services">
+    <div class="container">
+      <h2 style="margin:0 0 8px; font-family:Poppins; font-size:clamp(22px,4.5vw,34px)">Everything you need — end to end</h2>
+      <p style="margin:0 0 14px; color:var(--muted)">From first call to 24/7 after-sales, we’ve got you covered.</p>
+
+      <div class="svc-grid">
+        <!-- 1 -->
+        <article class="svc" data-anim>
+          <div class="icon" aria-hidden="true">
+            <!-- sun icon -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#03241c"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zm10.48 0l1.79-1.79 1.41 1.41-1.79 1.8-1.41-1.42zM12 4V1h-0v3h0zm0 19v-3h0v3h0zM4 12H1v0h3v0zm19 0h-3v0h3v0zM6.76 19.16l-1.42 1.42-1.79-1.8 1.41-1.41 1.8 1.79zm10.48 0l1.8 1.79 1.41-1.41-1.79-1.8-1.42 1.42zM12 7a5 5 0 100 10 5 5 0 000-10z"/></svg>
+          </div>
+          <h4>Free Solar Consultation & Site Survey</h4>
+          <p>We assess your roof, shade, load profile, and ROI so you get facts, not fluff.</p>
+        </article>
+        <!-- 2 -->
+        <article class="svc" data-anim>
+          <div class="icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#03241c"><path d="M3 3h18v2H3V3zm0 4h18v6H3V7zm0 8h18v2H3v-2zm0 4h18v2H3v-2z"/></svg>
+          </div>
+          <h4>Custom System Design & Engineering</h4>
+          <p>Tier-1 panels, high-efficiency inverters, and a design built around your budget.</p>
+        </article>
+        <!-- 3 -->
+        <article class="svc" data-anim>
+          <div class="icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#03241c"><path d="M20 8h-3l-2-3H9L7 8H4l-1 2v8a2 2 0 002 2h14a2 2 0 002-2v-8l-1-2zM5 18v-6h14v6H5z"/></svg>
+          </div>
+          <h4>Professional Installation</h4>
+          <p>Neat wiring, safe mounting, and quick commissioning with quality checks.</p>
+        </article>
+        <!-- 4 -->
+        <article class="svc" data-anim>
+          <div class="icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#03241c"><path d="M12 1l3 7h7l-5.5 4.2L18 21l-6-4-6 4 1.5-8.8L2 8h7z"/></svg>
+          </div>
+          <h4>Government Subsidy & Loan Assistance</h4>
+          <p>We handle the paperwork so you can claim benefits without the headache.</p>
+        </article>
+        <!-- 5 -->
+        <article class="svc" data-anim>
+          <div class="icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#03241c"><path d="M12 8a4 4 0 100 8 4 4 0 000-8zm0-6a1 1 0 011 1v2a1 1 0 01-2 0V3a1 1 0 011-1zm0 18a1 1 0 011 1v2a1 1 0 01-2 0v-2a1 1 0 011-1zM1 13a1 1 0 010-2h2a1 1 0 010 2H1zm20 0a1 1 0 010-2h2a1 1 0 010 2h-2zM4.22 5.64a1 1 0 011.42-1.42l1.41 1.41A1 1 0 016.64 7.05L5.22 5.64zm12.73 12.72a1 1 0 011.41 1.42l-1.41 1.41a1 1 0 01-1.42-1.41l1.42-1.42zM4.22 18.36l1.42-1.42a1 1 0 011.41 1.42l-1.41 1.41a1 1 0 01-1.42-1.41zM18.36 4.22l-1.42 1.42A1 1 0 1115.53 4.2l1.41-1.41a1 1 0 011.42 1.41z"/></svg>
+          </div>
+          <h4>Maintenance & Performance Monitoring</h4>
+          <p>We track generation and keep your system at peak performance.</p>
+        </article>
+        <!-- 6 -->
+        <article class="svc" data-anim>
+          <div class="icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#03241c"><path d="M12 2l9 4v6c0 5-3.8 9.7-9 10-5.2-.3-9-5-9-10V6l9-4z"/></svg>
+          </div>
+          <h4>Warranty & 24/7 After-Sales Support</h4>
+          <p>Bankable warranties and a support team that actually picks up.</p>
+        </article>
+      </div>
+
+      <div class="strip" style="margin-top:14px" data-anim>
+        <strong>Limited-time incentives:</strong> zero-cost consultation, priority site survey slots, and fast-track installs for eligible pincode areas.
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="container">
+      <h2 style="margin:0 0 10px; font-family:Poppins; font-size:clamp(20px,4vw,30px)">Loved by homeowners & businesses</h2>
+      <div class="grid" id="ts-grid">
+        <!-- populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div style="display:grid; gap:8px" data-anim>
+        <strong>SphTraders</strong>
+        <span class="fine">© <span id="yr"></span> SphTraders. All rights reserved.</span>
+        <span class="fine">By proceeding, you agree to be contacted by phone/WhatsApp/SMS for your solar request.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Call/WA (revealed after quiz completion) -->
+  <div class="float-cta hide" id="floatCta" aria-live="polite">
+    <div class="float-wrap">
+      <a class="call-big" href="tel:+919999999999" id="callBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#06231c" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V21a1 1 0 01-1 1C10.3 22 2 13.7 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z"/></svg>
+        Call Now
+      </a>
+      <a class="wa-big" id="waBtn" target="_blank" rel="noopener" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#03170f" aria-hidden="true"><path d="M20.5 3.5A11.5 11.5 0 106.8 22.2l1-3.6a8.8 8.8 0 1112.7-12.7zM7 20.1l.6-2.1.1-.4-.3-.3A9.5 9.5 0 1120.5 4a9.5 9.5 0 01-13.4 13.4l-.3-.3-.4.1L7 20.1zm9.8-6.6c-.2-.1-1.2-.6-1.3-.6s-.3-.1-.5.1c-.1.2-.5.6-.6.7-.1.1-.2.1-.4 0a7.3 7.3 0 01-2.2-1.3 8.4 8.4 0 01-1.5-1.8c-.1-.2 0-.3.1-.4.1-.1.3-.4.4-.5.1-.2 0-.3 0-.5 0-.1-.5-1.1-.6-1.3-.1-.3-.3-.3-.5-.3h-.4c-.1 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 3.9 3.4.5.2.9.3 1.2.4.5.2 1 .1 1.4.1.4 0 1.2-.5 1.4-1 .2-.5.2-.9.1-1 0-.1-.2-.1-.5-.2z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // ===== Basic state for quiz =====
+    const state = { purpose:null, role:null, bill:null };
+    const steps = Array.from(document.querySelectorAll('.q-step'));
+    const bar = document.getElementById('bar');
+    const stepNo = document.getElementById('stepNo');
+    const dots = [1,2,3].map(n=>document.getElementById('dot-'+n));
+    const floatCta = document.getElementById('floatCta');
+    const result = document.getElementById('result');
+    const summary = document.getElementById('summary');
+    const waBtn = document.getElementById('waBtn');
+
+    const phone = '+919999999999'; // <-- change to SphTraders phone number
+    const waNumber = '919999999999'; // international format without +
+
+    const updateProgress = (i) => {
+      const pct = (i/3)*100;
+      bar.style.width = pct + '%';
+      stepNo.textContent = i;
+      dots.forEach((d,idx)=> d.classList.toggle('active', idx < i));
+    };
+
+    const showStep = (n) => {
+      steps.forEach(s => s.classList.add('hide'));
+      const target = steps.find(s => s.dataset.step == n);
+      if (target) target.classList.remove('hide');
+      updateProgress(n);
+      // Scroll step into view on mobile
+      target?.scrollIntoView({behavior:'smooth', block:'center'});
+    };
+
+    // Initialize interaction for each step
+    steps.forEach(step => {
+      const keyButtons = step.querySelectorAll('.opt');
+      keyButtons.forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const key = btn.dataset.key;
+          const value = btn.dataset.value;
+          // toggle selection visuals
+          keyButtons.forEach(b=>b.classList.remove('selected'));
+          btn.classList.add('selected');
+          // state
+          state[key]=value;
+
+          // enable forward button
+          const nextBtn = step.querySelector('.btn-next, #finish');
+          if (nextBtn) nextBtn.disabled = false;
+        });
+      });
+    });
+
+    // Step buttons
+    document.getElementById('next-1').addEventListener('click', ()=> showStep(2));
+    document.getElementById('skip-1').addEventListener('click', ()=> { state.purpose='—'; showStep(2); });
+
+    document.getElementById('back-2').addEventListener('click', ()=> showStep(1));
+    document.getElementById('next-2').addEventListener('click', ()=> showStep(3));
+
+    document.getElementById('back-3').addEventListener('click', ()=> showStep(2));
+
+    // Finish
+    document.getElementById('finish').addEventListener('click', ()=>{
+      // Render summary
+      const text = `Purpose: ${state.purpose || '—'} • You are a ${state.role || '—'} • Bill: ${state.bill || '—'}.
+      Based on your inputs, our engineers recommend a tailored system with subsidy/loan guidance.`;
+      summary.textContent = text;
+
+      // Build WA link
+      const encoded = encodeURIComponent(`Hi SphTraders, I am interested in solar.
+Purpose: ${state.purpose}
+Role: ${state.role}
+Bill: ${state.bill}
+Please call me back.`);
+      waBtn.href = `https://wa.me/${waNumber}?text=${encoded}`;
+
+      // Reveal result + floating CTA
+      result.classList.remove('hide');
+      floatCta.classList.remove('hide'); floatCta.classList.add('show');
+
+      // Smooth scroll to result
+      result.scrollIntoView({behavior:'smooth', block:'center'});
+
+      // Persist lightweight lead context (localStorage)
+      try{ localStorage.setItem('sphtraders_lead', JSON.stringify({ ...state, ts: Date.now() })); }catch(e){}
+    });
+
+    // Initial
+    showStep(1);
+
+    // ===== Testimonials (simple rotating content) =====
+    const testimonials = [
+      {name:'Vikram S.', tag:'Homeowner • Lucknow', text:'Bill down by ~65%. Team was quick and neat with installation.'},
+      {name:'Aisha K.', tag:'Boutique Owner • Kanpur', text:'Subsidy paperwork was a breeze. Monitoring app is super helpful.'},
+      {name:'Rahul M.', tag:'Homeowner • Prayagraj', text:'Clear ROI explanation. Got grid-tie inverter and it’s rock solid.'},
+    ];
+    const tsGrid = document.getElementById('ts-grid');
+    function renderTestimonials(){
+      tsGrid.innerHTML = '';
+      testimonials.forEach(t=>{
+        const el = document.createElement('div');
+        el.className = 't-card';
+        el.setAttribute('data-anim','');
+        el.innerHTML = `
+          <div class="stars">★★★★★</div>
+          <strong>${t.name}</strong>
+          <span style="color:var(--muted); font-size:12px">${t.tag}</span>
+          <p style="margin:0">${t.text}</p>
+        `;
+        tsGrid.appendChild(el);
+      });
+    }
+    renderTestimonials();
+
+    // ===== Scroll-reveal animations =====
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if (e.isIntersecting) e.target.classList.add('in');
+      });
+    },{root:null, threshold:.12});
+    document.querySelectorAll('[data-anim]').forEach(el=>observer.observe(el));
+
+    // Year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // ===== Optional: show floating CTA only after user scrolls below hero if result not visible =====
+    let unlockedByScroll = false;
+    window.addEventListener('scroll', ()=>{
+      if (!unlockedByScroll && window.scrollY > 900 && result.classList.contains('hide')){
+        unlockedByScroll = true;
+        // soft prompt (no CTA yet, UX choice)
+      }
+    });
+
+    // Deep link with prefilled state (if you ever add query params later)
+    // const params = new URLSearchParams(location.search);
+
+  </script>
+</body>
+</html>
