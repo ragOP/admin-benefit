@@ -4,18 +4,23 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import { useNavigate } from "react-router-dom";
 
-export function NavMain({
-  items
-}) {
+export function NavMain({ items }) {
+  const navigate = useNavigate();
   return (
-    (<SidebarGroup>
+    <SidebarGroup>
       <SidebarGroupContent>
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title} isActive={true} className="bg-black text-white hover:bg-black/90">
+              <SidebarMenuButton
+                onClick={() => navigate(item.url)}
+                tooltip={item.title}
+                isActive={true}
+                className="bg-black text-white hover:bg-black/90"
+              >
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>
               </SidebarMenuButton>
@@ -23,6 +28,6 @@ export function NavMain({
           ))}
         </SidebarMenu>
       </SidebarGroupContent>
-    </SidebarGroup>)
+    </SidebarGroup>
   );
 }

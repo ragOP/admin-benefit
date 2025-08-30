@@ -1,14 +1,15 @@
-import './App.css'
-import Dashboard from './app/dashboard/page'
-import { Toaster } from 'sonner'
+import "./App.css";
+import { Toaster } from "sonner";
+import AppRouter from "./router";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 function App() {
   return (
-    <>
-      <Dashboard />
+    <SidebarProvider>
       <Toaster position="top-right" />
-    </>
-  )
+      <AppRouter />
+    </SidebarProvider>
+  );
 }
 
-export default App
+export default App;

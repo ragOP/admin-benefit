@@ -1,11 +1,8 @@
-import * as React from "react"
-import {
-  ArrowUpCircleIcon,
-  UsersIcon,
-} from "lucide-react"
+import * as React from "react";
+import { ArrowUpCircleIcon, UsersIcon } from "lucide-react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -14,34 +11,22 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import { data } from "@/utils/sidebar";
 
-const data = {
-  user: {
-    name: "Admin User",
-    email: "admin@company.com",
-    avatar: "/avatars/admin.jpg",
-  },
-  navMain: [
-    {
-      title: "User Management",
-      url: "#",
-      icon: UsersIcon,
-    },
-  ],
-}
-
-export function AppSidebar({
-  ...props
-}) {
+export function AppSidebar({ ...props }) {
   return (
-    (<Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
-              <a href="#">
-                <ArrowUpCircleIcon className="h-5 w-5" />
+            <SidebarMenuButton
+              asChild
+              className="data-[slot=sidebar-menu-button]:!p-1.5"
+            >
+              <a href="/dashboard">
+                {/* <ArrowUpCircleIcon className="h-5 w-5" /> */}
+                <img src="/admin.webp" alt="Brand Logo" className="w-8 h-8" />
                 <span className="text-base font-semibold">Admin Panel</span>
               </a>
             </SidebarMenuButton>
@@ -54,6 +39,6 @@ export function AppSidebar({
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
-    </Sidebar>)
+    </Sidebar>
   );
 }

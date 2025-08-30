@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Bell, Users, Search, Settings, ChevronDown, Loader2, Activity, UserPlus, UserCheck, BarChart3 } from "lucide-react";
-import { AppSidebar } from "@/components/app-sidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+  Bell,
+  Users,
+  Search,
+  Settings,
+  ChevronDown,
+  Loader2,
+  Activity,
+  UserPlus,
+  UserCheck,
+  BarChart3,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -34,7 +43,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
-function UserManagement() {
+export const ChatsManagement = () => {
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -180,12 +189,18 @@ function UserManagement() {
         {/* Total Users (current page) */}
         <Card className="relative overflow-hidden border-0 shadow-md bg-gradient-to-br from-indigo-500/10 via-indigo-500/5 to-transparent">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Users (this page)</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600">
+              Users (this page)
+            </CardTitle>
           </CardHeader>
           <CardContent className="flex items-end justify-between">
             <div>
-              <div className="text-3xl font-bold text-gray-900">{users.length}</div>
-              <p className="text-xs text-gray-500 mt-1">Fetched with search & pagination</p>
+              <div className="text-3xl font-bold text-gray-900">
+                {users.length}
+              </div>
+              <p className="text-xs text-gray-500 mt-1">
+                Fetched with search & pagination
+              </p>
             </div>
             <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-600">
               <Users className="w-6 h-6" />
@@ -197,14 +212,18 @@ function UserManagement() {
         {/* Active Users (FCM present on this page) */}
         <Card className="relative overflow-hidden border-0 shadow-md bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Active (FCM on page)</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600">
+              Active (FCM on page)
+            </CardTitle>
           </CardHeader>
           <CardContent className="flex items-end justify-between">
             <div>
               <div className="text-3xl font-bold text-gray-900">
                 {users.filter((u) => u.fcmToken && u.fcmToken !== "-").length}
               </div>
-              <p className="text-xs text-gray-500 mt-1">Ready to receive notifications</p>
+              <p className="text-xs text-gray-500 mt-1">
+                Ready to receive notifications
+              </p>
             </div>
             <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-600">
               <Activity className="w-6 h-6" />
@@ -216,12 +235,18 @@ function UserManagement() {
         {/* Selected Users */}
         <Card className="relative overflow-hidden border-0 shadow-md bg-gradient-to-br from-violet-500/10 via-violet-500/5 to-transparent">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Selected users</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600">
+              Selected users
+            </CardTitle>
           </CardHeader>
           <CardContent className="flex items-end justify-between">
             <div>
-              <div className="text-3xl font-bold text-gray-900">{selectedUsers.length}</div>
-              <p className="text-xs text-gray-500 mt-1">Ready for bulk actions</p>
+              <div className="text-3xl font-bold text-gray-900">
+                {selectedUsers.length}
+              </div>
+              <p className="text-xs text-gray-500 mt-1">
+                Ready for bulk actions
+              </p>
             </div>
             <div className="p-2 rounded-lg bg-violet-500/10 text-violet-600">
               <UserCheck className="w-6 h-6" />
@@ -233,12 +258,18 @@ function UserManagement() {
         {/* Pagination Overview */}
         <Card className="relative overflow-hidden border-0 shadow-md bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Pages</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600">
+              Pages
+            </CardTitle>
           </CardHeader>
           <CardContent className="flex items-end justify-between">
             <div>
-              <div className="text-3xl font-bold text-gray-900">{totalPages}</div>
-              <p className="text-xs text-gray-500 mt-1">Currently on page {page}</p>
+              <div className="text-3xl font-bold text-gray-900">
+                {totalPages}
+              </div>
+              <p className="text-xs text-gray-500 mt-1">
+                Currently on page {page}
+              </p>
             </div>
             <div className="p-2 rounded-lg bg-amber-500/10 text-amber-600">
               <BarChart3 className="w-6 h-6" />
@@ -346,23 +377,23 @@ function UserManagement() {
                       >
                         Cancel
                       </Button>
-                                              <Button
-                          onClick={handleSendNotification}
-                          disabled={
-                            !notificationData.title || 
-                            !notificationData.body ||
-                            sendingNotification
-                          }
-                        >
-                          {sendingNotification ? (
-                            <>
-                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                              Sending...
-                            </>
-                          ) : (
-                            'Send'
-                          )}
-                        </Button>
+                      <Button
+                        onClick={handleSendNotification}
+                        disabled={
+                          !notificationData.title ||
+                          !notificationData.body ||
+                          sendingNotification
+                        }
+                      >
+                        {sendingNotification ? (
+                          <>
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          "Send"
+                        )}
+                      </Button>
                     </DialogFooter>
                   </DialogContent>
                 </Dialog>
@@ -442,41 +473,4 @@ function UserManagement() {
       </Card>
     </div>
   );
-}
-
-export default function Dashboard() {
-  return (
-    <SidebarProvider>
-      <div className="flex min-h-screen w-full">
-        <AppSidebar />
-        <div className="flex-1">
-          <header className="sticky top-0 z-40 w-full border-b bg-white">
-            <div className="flex h-16 items-center gap-4 px-4 lg:px-6">
-              <SidebarTrigger className="lg:hidden" />
-              <div className="flex-1">
-                <h1 className="text-xl font-semibold">Admin Dashboard</h1>
-              </div>
-              <div className="flex items-center gap-2">
-                <Button variant="ghost" size="icon">
-                  <Bell className="h-4 w-4" />
-                </Button>
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src="/api/placeholder/32/32" alt="Admin" />
-                  <AvatarFallback>AD</AvatarFallback>
-                </Avatar>
-              </div>
-            </div>
-          </header>
-
-          <main className="flex-1 p-4 lg:p-6">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-6"></div>
-
-            <div className="w-full">
-              <UserManagement />
-            </div>
-          </main>
-        </div>
-      </div>
-    </SidebarProvider>
-  );
-}
+};
