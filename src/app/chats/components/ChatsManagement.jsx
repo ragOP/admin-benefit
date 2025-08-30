@@ -47,8 +47,10 @@ import { sendChatMessage } from "../helpers/sendChatMessage";
 import { truncateStr } from "@/utils/truncateStr";
 import { formatDate } from "@/utils/formatDate";
 import { formatTime } from "@/utils/formatTime";
+import { useNavigate } from "react-router-dom";
 
 export const ChatsManagement = () => {
+  const navigate = useNavigate();
   const [chats, setChats] = useState([]);
   const [selectedChats, setSelectedChats] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -356,21 +358,6 @@ export const ChatsManagement = () => {
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
-            {/*
-            {
-    "_id": "68b23e9d0944f97560381ca1",
-    "participants": [
-        {
-            "_id": "68b1704eab0d871794c54ec6",
-            "username": "farishjamal",
-            "email": "farishjamal8@gmail.com"
-        }
-    ],
-    "isActive": true,
-    "createdAt": "2025-08-29T23:58:21.064Z",
-    "updatedAt": "2025-08-29T23:58:21.064Z",
-    "__v": 0
-} */}
             <Table>
               <TableHeader>
                 <TableRow>
@@ -391,37 +378,57 @@ export const ChatsManagement = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {chats?.map((chat) => (
-                  <TableRow key={chat?._id}>
-                    <TableCell>
-                      <Checkbox
-                        checked={selectedChats?.includes(chat?._id)}
-                        onCheckedChange={() => handleSelectedChats(chat?._id)}
-                      />
-                    </TableCell>
-                    <TableCell className="text-xs text-gray-600">
-                      {truncateStr(chat?._id)}
-                    </TableCell>
-                    <TableCell>
-                      {chat?.participants
-                        ?.map((participant) => participant?.username)
-                        .join(", ")}
-                    </TableCell>
-                    <TableCell className="text-sm text-gray-600">
-                      {chat?.isActive ? (
-                        <Badge variant="default">Active</Badge>
-                      ) : (
-                        <Badge variant="destructive">Inactive</Badge>
-                      )}
-                    </TableCell>
-                    <TableCell className="text-xs text-gray-600 break-all max-w-[250px]">
-                      {formatTime(chat?.updatedAt)}
-                    </TableCell>
-                    <TableCell className="text-xs text-gray-600 break-all max-w-[250px]">
-                      {formatTime(chat?.createdAt)}
+                {chats.length > 0 ? (
+                  chats?.map((chat) => (
+                    <TableRow
+                      key={chat?._id}
+                      onClick={() =>
+                        navigate(`/dashboard/chats/${chat?._id}`, {
+                          state: {
+                            chat: chat,
+                          },
+                        })
+                      }
+                      className="cursor-pointer"
+                    >
+                      <TableCell
+                        onClick={(e) => e.stopPropagation()} // prevent row navigation when checkbox clicked
+                      >
+                        <Checkbox
+                          checked={selectedChats?.includes(chat?._id)}
+                          onCheckedChange={() => handleSelectedChats(chat?._id)}
+                        />
+                      </TableCell>
+                      <TableCell className="text-xs text-gray-600">
+                        {truncateStr(chat?._id)}
+                      </TableCell>
+                      <TableCell>
+                        {chat?.participants
+                          ?.map((participant) => participant?.username)
+                          .join(", ")}
+                      </TableCell>
+                      <TableCell className="text-sm text-gray-600">
+                        {chat?.isActive ? (
+                          <Badge variant="default">Active</Badge>
+                        ) : (
+                          <Badge variant="destructive">Inactive</Badge>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-xs text-gray-600 break-all max-w-[250px]">
+                        {formatTime(chat?.updatedAt)}
+                      </TableCell>
+                      <TableCell className="text-xs text-gray-600 break-all max-w-[250px]">
+                        {formatTime(chat?.createdAt)}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={6} className="h-24 text-center">
+                      No chats found
                     </TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </div>

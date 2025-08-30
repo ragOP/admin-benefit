@@ -3,7 +3,7 @@ import axios from "axios";
 export const sendChatMessage = async (payload) => {
   try {
     const response = await axios.post(
-      "https://benifit-ai-app-be.onrender.com/api/v1/chats/send-message",
+      "https://benifit-ai-app-be.onrender.com/api/v1/send-message",
       payload,
       {
         headers: {

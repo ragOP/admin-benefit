@@ -14,6 +14,7 @@ const AppWrapper = lazy(() => import("@/components/app-wrapper"));
 const Dashboard = lazy(() => import("@/app/dashboard"));
 const UserManagementPage = lazy(() => import("@/app/users"));
 const ChatPage = lazy(() => import("@/app/chats"));
+const Chat = lazy(() => import("@/app/chats/app/chat"));
 
 const AppRouter = () => (
   <Router>
@@ -33,6 +34,7 @@ const AppRouter = () => (
           <Route index element={<Dashboard />} />
           <Route path="users" element={<UserManagementPage />} />
           <Route path="chats" element={<ChatPage />} />
+          <Route path="chats/:conversationId" element={<Chat />} />
         </Route>
         {/* <Route path="*" element={<Navigate to="/login" replace />} /> */}
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
