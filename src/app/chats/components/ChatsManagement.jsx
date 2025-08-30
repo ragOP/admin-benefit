@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
   Bell,
-  Users,
+  MessageCircle,
   Search,
-  Settings,
   ChevronDown,
   Loader2,
   Activity,
-  UserPlus,
   UserCheck,
   BarChart3,
 } from "lucide-react";
@@ -40,12 +38,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { getAllChats } from "../helpers/getAllChats";
+import { sendChatMessage } from "../helpers/sendChatMessage";
+import { truncateStr } from "@/utils/truncateStr";
+import { formatDate } from "@/utils/formatDate";
+import { formatTime } from "@/utils/formatTime";
 
 export const ChatsManagement = () => {
-  const [users, setUsers] = useState([]);
-  const [selectedUsers, setSelectedUsers] = useState([]);
+  const [chats, setChats] = useState([]);
+  const [selectedChats, setSelectedChats] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -60,114 +65,59 @@ export const ChatsManagement = () => {
   const [sendingNotification, setSendingNotification] = useState(false);
   const limit = 50;
 
-  const handleSendNotification = async () => {
-    setSendingNotification(true);
-    try {
-      const payload = {
-        notificationData,
-        userIds: selectedUsers,
-      };
+  const sendChatMessageMutation = useMutation({
+    mutationFn: sendChatMessage,
+    onSuccess: () => {
+      toast.success("Message sent successfully");
+    },
+    onError: (error) => {
+      console.error("Error sending message:", error);
+      toast.error("Failed to send message");
+    },
+  });
 
-      const res = await fetch(
-        "https://benifit-ai-app-be.onrender.com/api/v1/send-notification",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-
-      const data = await res.json();
-      if (data.success) {
-        const { successCount, failureCount, results } = data.data;
-
-        toast.info(
-          `Notifications sent: ${successCount} successful, ${failureCount} failed`
-        );
-        if (failureCount > 0) {
-          results.forEach((result) => {
-            if (!result.success) {
-              const user = users.find((u) => u.id === result.userId);
-              toast.error(
-                `Failed to send to ${user?.name || result.userId}: ${
-                  result.message
-                }`
-              );
-            }
-          });
-        }
-        if (successCount > 0) {
-          toast.success(`Successfully sent to ${successCount} user(s)`);
-        }
-
-        setNotificationDialog(false);
-        setNotificationData({ title: "", body: "" });
-        setSelectedUsers([]);
-      } else {
-        toast.error("Failed to send notifications");
-      }
-    } catch (error) {
-      console.error("Failed to send notification:", error);
-      toast.error("Failed to send notifications: Network error");
-    } finally {
-      setSendingNotification(false);
-    }
+  const handleSendMessage = async () => {
+    sendChatMessageMutation.mutate({
+      text: "",
+      userIds: "",
+    });
   };
 
-  const fetchUsers = async (searchQuery = "", pageNum = 1) => {
-    setLoading(true);
-    try {
-      const queryParams = new URLSearchParams({
-        search: searchQuery,
-        page: pageNum,
-        limit: limit,
-      }).toString();
+  const { data: chatsData, isLoading: chatsLoading } = useQuery({
+    queryKey: ["chats", page],
+    queryFn: () => getAllChats(),
+    enabled: true,
+    refetchOnWindowFocus: false,
+    refetchOnMount: true,
+    refetchInterval: 5000,
+    refetchIntervalInBackground: true,
+    staleTime: 5000,
+    cacheTime: 5000,
+    onSuccess: (data) => {
+      setChats(data);
+    },
+    onError: (error) => {
+      console.error("Error fetching chats:", error);
+    },
+  });
 
-      const res = await fetch(
-        `https://benifit-ai-app-be.onrender.com/api/v1/users/get-all-user?${queryParams}`
-      );
-      const json = await res.json();
-      if (json.success && json.data) {
-        const { users: list, hasNextPage, hasPrevPage, totalPages } = json.data;
-        const normalized = list.map((u) => ({
-          id: u._id,
-          name: u.username || u.email || "-",
-          email: u.email || "-",
-          fcmToken: u.fcmToken || "-",
-          password: u.password || "-",
-          version: u.__v || 0,
-        }));
-        setUsers(normalized);
-        setHasNextPage(hasNextPage);
-        setHasPrevPage(hasPrevPage);
-        setTotalPages(totalPages);
-      } else {
-        setUsers([]);
-      }
-    } catch (e) {
-      console.error("Failed to fetch users", e);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (chatsData) {
+      console.log("chatsData >>>", chatsData);
+      setChats(chatsData);
     }
-  };
+  }, [chatsData]);
 
-  useEffect(() => {
-    fetchUsers("", page);
-  }, [page]);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setPage(1);
+  //   }, 500);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      fetchUsers(searchTerm, 1);
-      setPage(1);
-    }, 500);
+  //   return () => clearTimeout(timer);
+  // }, [searchTerm]);
 
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
-
-  const handleSelectUser = (userId) => {
-    setSelectedUsers((prev) =>
+  const handleSelectedChats = (userId) => {
+    setSelectedChats((prev) =>
       prev.includes(userId)
         ? prev.filter((id) => id !== userId)
         : [...prev, userId]
@@ -175,10 +125,10 @@ export const ChatsManagement = () => {
   };
 
   const handleSelectAll = () => {
-    if (selectedUsers.length === users.length) {
-      setSelectedUsers([]);
+    if (selectedChats.length === chats.length) {
+      setSelectedChats([]);
     } else {
-      setSelectedUsers(users.map((user) => user.id));
+      setSelectedChats(chats.map((user) => user.id));
     }
   };
 
@@ -186,30 +136,30 @@ export const ChatsManagement = () => {
     <div className="space-y-6">
       {/* Top KPI Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {/* Total Users (current page) */}
+        {/* Total chats (current page) */}
         <Card className="relative overflow-hidden border-0 shadow-md bg-gradient-to-br from-indigo-500/10 via-indigo-500/5 to-transparent">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-600">
-              Users (this page)
+              Conversations (this page)
             </CardTitle>
           </CardHeader>
           <CardContent className="flex items-end justify-between">
             <div>
               <div className="text-3xl font-bold text-gray-900">
-                {users.length}
+                {chats?.length}
               </div>
               <p className="text-xs text-gray-500 mt-1">
                 Fetched with search & pagination
               </p>
             </div>
             <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-600">
-              <Users className="w-6 h-6" />
+              <chats className="w-6 h-6" />
             </div>
           </CardContent>
           <div className="pointer-events-none absolute -right-6 -bottom-6 h-24 w-24 rounded-full bg-indigo-500/10" />
         </Card>
 
-        {/* Active Users (FCM present on this page) */}
+        {/* Active chats (FCM present on this page) */}
         <Card className="relative overflow-hidden border-0 shadow-md bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-600">
@@ -219,7 +169,10 @@ export const ChatsManagement = () => {
           <CardContent className="flex items-end justify-between">
             <div>
               <div className="text-3xl font-bold text-gray-900">
-                {users.filter((u) => u.fcmToken && u.fcmToken !== "-").length}
+                {
+                  chats?.filter((u) => u?.fcmToken && u?.fcmToken !== "-")
+                    .length
+                }
               </div>
               <p className="text-xs text-gray-500 mt-1">
                 Ready to receive notifications
@@ -232,17 +185,17 @@ export const ChatsManagement = () => {
           <div className="pointer-events-none absolute -right-6 -bottom-6 h-24 w-24 rounded-full bg-emerald-500/10" />
         </Card>
 
-        {/* Selected Users */}
+        {/* Selected chats */}
         <Card className="relative overflow-hidden border-0 shadow-md bg-gradient-to-br from-violet-500/10 via-violet-500/5 to-transparent">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-600">
-              Selected users
+              Selected chats
             </CardTitle>
           </CardHeader>
           <CardContent className="flex items-end justify-between">
             <div>
               <div className="text-3xl font-bold text-gray-900">
-                {selectedUsers.length}
+                {selectedChats?.length}
               </div>
               <p className="text-xs text-gray-500 mt-1">
                 Ready for bulk actions
@@ -283,7 +236,7 @@ export const ChatsManagement = () => {
         <div>
           <h2 className="text-2xl font-bold text-gray-900">User Management</h2>
           <p className="text-gray-600">
-            Manage your users and their permissions
+            Manage your chats and their permissions
           </p>
         </div>
       </div>
@@ -293,13 +246,13 @@ export const ChatsManagement = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <Label htmlFor="search" className="sr-only">
-                Search users
+                Search chats
               </Label>
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
                   id="search"
-                  placeholder="Search users..."
+                  placeholder="Search chats..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -314,13 +267,13 @@ export const ChatsManagement = () => {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Users ({users.length})</CardTitle>
+              <CardTitle>chats ({chats?.length})</CardTitle>
               <CardDescription>
-                {selectedUsers.length > 0 &&
-                  `${selectedUsers.length} user(s) selected`}
+                {selectedChats?.length > 0 &&
+                  `${selectedChats?.length} user(s) selected`}
               </CardDescription>
             </div>
-            {selectedUsers.length > 0 && (
+            {selectedChats?.length > 0 && (
               <div className="flex gap-2">
                 <Dialog
                   open={notificationDialog}
@@ -336,7 +289,7 @@ export const ChatsManagement = () => {
                     <DialogHeader>
                       <DialogTitle>Send Notification</DialogTitle>
                       <DialogDescription>
-                        Send a notification to {selectedUsers.length} selected
+                        Send a notification to {selectedChats?.length} selected
                         user(s).
                       </DialogDescription>
                     </DialogHeader>
@@ -345,7 +298,7 @@ export const ChatsManagement = () => {
                         <Label htmlFor="title">Title</Label>
                         <Input
                           id="title"
-                          value={notificationData.title}
+                          value={notificationData?.title}
                           onChange={(e) =>
                             setNotificationData((prev) => ({
                               ...prev,
@@ -359,7 +312,7 @@ export const ChatsManagement = () => {
                         <Label htmlFor="body">Message Body</Label>
                         <Textarea
                           id="body"
-                          value={notificationData.body}
+                          value={notificationData?.body}
                           onChange={(e) =>
                             setNotificationData((prev) => ({
                               ...prev,
@@ -378,7 +331,7 @@ export const ChatsManagement = () => {
                         Cancel
                       </Button>
                       <Button
-                        onClick={handleSendNotification}
+                        onClick={handleSendMessage}
                         disabled={
                           !notificationData.title ||
                           !notificationData.body ||
@@ -403,44 +356,69 @@ export const ChatsManagement = () => {
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
+            {/*
+            {
+    "_id": "68b23e9d0944f97560381ca1",
+    "participants": [
+        {
+            "_id": "68b1704eab0d871794c54ec6",
+            "username": "farishjamal",
+            "email": "farishjamal8@gmail.com"
+        }
+    ],
+    "isActive": true,
+    "createdAt": "2025-08-29T23:58:21.064Z",
+    "updatedAt": "2025-08-29T23:58:21.064Z",
+    "__v": 0
+} */}
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-12">
                     <Checkbox
                       checked={
-                        selectedUsers.length === users.length &&
-                        users.length > 0
+                        selectedChats?.length === chats?.length &&
+                        chats?.length > 0
                       }
                       onCheckedChange={handleSelectAll}
                     />
                   </TableHead>
                   <TableHead>ID</TableHead>
-                  <TableHead>Username</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>FCM Token</TableHead>
+                  <TableHead>Participants</TableHead>
+                  <TableHead>isActive</TableHead>
+                  <TableHead>Last Message</TableHead>
+                  <TableHead>Chat Started</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {users.map((user) => (
-                  <TableRow key={user.id}>
+                {chats?.map((chat) => (
+                  <TableRow key={chat?._id}>
                     <TableCell>
                       <Checkbox
-                        checked={selectedUsers.includes(user.id)}
-                        onCheckedChange={() => handleSelectUser(user.id)}
+                        checked={selectedChats?.includes(chat?._id)}
+                        onCheckedChange={() => handleSelectedChats(chat?._id)}
                       />
                     </TableCell>
                     <TableCell className="text-xs text-gray-600">
-                      {user.id}
+                      {truncateStr(chat?._id)}
                     </TableCell>
                     <TableCell>
-                      <div className="font-medium">{user.name}</div>
+                      {chat?.participants
+                        ?.map((participant) => participant?.username)
+                        .join(", ")}
                     </TableCell>
                     <TableCell className="text-sm text-gray-600">
-                      {user.email}
+                      {chat?.isActive ? (
+                        <Badge variant="default">Active</Badge>
+                      ) : (
+                        <Badge variant="destructive">Inactive</Badge>
+                      )}
                     </TableCell>
                     <TableCell className="text-xs text-gray-600 break-all max-w-[250px]">
-                      {user.fcmToken || "-"}
+                      {formatTime(chat?.updatedAt)}
+                    </TableCell>
+                    <TableCell className="text-xs text-gray-600 break-all max-w-[250px]">
+                      {formatTime(chat?.createdAt)}
                     </TableCell>
                   </TableRow>
                 ))}
